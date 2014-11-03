@@ -6,6 +6,7 @@ function out = labelplot(plotlabel,varargin)
 parser = inputParser;
 addParamValue(parser,'textoptions',{},@iscell);
 addParamValue(parser,'fontsize',[],@isnumeric);
+addParamValue(parser,'interpreter','tex',@ischar);
 addParamValue(parser,'location','northwest',@ischar);
 addParamValue(parser,'grayout',true,@islogical);
 
@@ -14,13 +15,7 @@ textoptions = parser.Results.textoptions;
 fontsize = parser.Results.fontsize;
 location = parser.Results.location;
 grayout = parser.Results.grayout;
-
-if ~isempty(fontsize)
-    textoptions = [textoptions 'fontsize',fontsize];
-end
-
-if ispc, basefontsize = 12;
-else basefontsize = 24; end
+interpreter = parser.Results.interpreter;
 
 set(gca,'units','pixels');
 dim = get(gca,'position');
@@ -30,27 +25,31 @@ ht = dim(4);
 hspace = min(max(wd./20, 10),5);
 vspace = min(max(ht./10, 10),1);
 
+% set text properties and defaults
+if ispc, basefontsize = 12;
+else basefontsize = 24; end
+if isempty(fontsize)
+    fontsize = min(basefontsize,calculate_fontsize(gca,8));
+end
+textoptions = [textoptions {'fontsize',fontsize,'interpreter',interpreter}];
+
 if ~isempty(plotlabel)
     if ~isempty(strtrim( strrep(plotlabel,'EMPTY','')))
         % label plot
         if strcmpi(location,'northwest')
             text(hspace,ht-vspace,plotlabel,'units','pixels',...
-                'verticalalignment','top','fontsize',...
-                min(basefontsize,calculate_fontsize(gca,8)),textoptions{:});
+                'verticalalignment','top',textoptions{:});
         elseif strcmpi(location,'southwest')
             text(hspace,vspace,plotlabel,'units','pixels',...
-                'verticalalignment','bottom','fontsize',...
-                min(basefontsize,calculate_fontsize(gca,8)),textoptions{:});
+                'verticalalignment','bottom',textoptions{:});
         elseif strcmpi(location,'northeast')
             text(wd-hspace,ht-vspace,plotlabel,'units','pixels',...
                 'verticalalignment','top','horizontalalignment','right',...
-                'fontsize',...
-                min(basefontsize,calculate_fontsize(gca,8)),textoptions{:});
+                textoptions{:});
         elseif strcmpi(location,'southeast')
             text(wd-hspace,vspace,plotlabel,'units','pixels',...
                 'verticalalignment','bottom','horizontalalignment','right',...
-                'fontsize',...
-                min(basefontsize,calculate_fontsize(gca,8)),textoptions{:});
+                textoptions{:});
         end
     elseif grayout
         % gray out empty wells

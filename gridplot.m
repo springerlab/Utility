@@ -1,7 +1,7 @@
 function[ hf ha] = gridplot(varargin)
-%SETUPGRIDPLOT creates a figure with a grid of NROWS x NCOLS plots, each of
-%which is WIDTH pixels wide and HEIGHT pixels high. Margins and gaps are
-%hard-coded for a typical screen setup to leave room for axes labels
+% GRIDPLOT creates a figure with a grid of NROWS x NCOLS plots, each of
+% which is WIDTH pixels wide and HEIGHT pixels high. Margins and gaps are
+% hard-coded for a typical screen setup to leave room for axes labels
 % 
 %   GRIDPLOT with no arguments creates a single 800x600px plot with white
 %   background.
@@ -21,7 +21,8 @@ function[ hf ha] = gridplot(varargin)
 %   Best used in conjunction with ADJUSTAXESLABELS to make pretty grids of
 %   plots.
 %   
-%   Last updated 20131101 JW
+% Created 20131101 JW
+% Updated 20141023 JW
 p = inputParser;
 addOptional(p,'nrows',1,@isnumeric);
 addOptional(p,'ncols',1,@isnumeric);
@@ -33,6 +34,7 @@ addParamValue(p,'margbot',50,@isnumeric);
 addParamValue(p,'margtop',25,@isnumeric);
 addParamValue(p,'gapvert',50,@isnumeric);
 addParamValue(p,'gaphorz',50,@isnumeric);
+addParamValue(p,'gap',[],@isnumeric);
 
 parse(p, varargin{:});
 nrows = p.Results.nrows;
@@ -45,6 +47,12 @@ margleft = p.Results.margleft;
 margright = p.Results.margright;
 gapvert = p.Results.gapvert;
 gaphorz= p.Results.gaphorz;
+gap = p.Results.gap;
+
+if ~isempty(gap)
+    gaphorz = gap;
+    gapvert = gap;
+end
 
 figwidth = margleft + margright + ncols*width + (ncols-1)*gaphorz;
 figheight = margbot + margtop + nrows*height + (nrows-1)*gapvert;
