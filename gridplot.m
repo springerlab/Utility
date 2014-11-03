@@ -57,7 +57,13 @@ end
 figwidth = margleft + margright + ncols*width + (ncols-1)*gaphorz;
 figheight = margbot + margtop + nrows*height + (nrows-1)*gapvert;
 
-hf = figure('position',[10 10 figwidth figheight]);
+% centered on screen
+screen = get(0,'screensize');
+bottompx = max((screen(4) - figheight)./2, 10);
+leftpx = max((screen(3) - figwidth)./2, 10);
+
+hf = figure('position',[leftpx bottompx figwidth figheight]);
+
 %     h = tight_subplot(3,3,[.05 .05],[.07 .03],[.02 .01]);
 ha = tight_subplot(nrows,ncols,[gapvert gaphorz],[margbot margtop],[margleft margright],'pixels');
 set(hf,'color','w')
