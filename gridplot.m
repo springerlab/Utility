@@ -18,11 +18,11 @@ function[ hf ha] = gridplot(varargin)
 %   pixels, and the space above the grid of plots is 50 pixels. Other
 %   options are 'gaphorz', 'margleft', 'margright', and 'margbot'.
 %   
-%   Best used in conjunction with ADJUSTAXESLABELS to make pretty grids of
-%   plots.
+%   Use in conjunction with ADJUSTAXESLABELS to grids of many plots with
+%   shared axes and tick labels.
 %   
 % Created 20131101 JW
-% Updated 20141023 JW
+% Updated 20141103 JW
 p = inputParser;
 addOptional(p,'nrows',1,@isnumeric);
 addOptional(p,'ncols',1,@isnumeric);

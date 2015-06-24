@@ -7,12 +7,16 @@ function adjustaxeslabels(dim,coords,flag)
 % false), labels will be omitted from all panels other than the bottom-left
 % panel. This function is best used when looping through subplots generated
 % by GRIDPLOT.
-% 
+%
 % See GRIDPLOTDEMO for an example of usage.
 %
 % 20130416
-r = coords(1);
-c = coords(2);
+if length(coords)==1
+    [c,r]=ind2sub(fliplr(dim),coords);
+else
+    r = coords(1);
+    c = coords(2);
+end
 
 if ~exist('flag','var')
     flag=false;
@@ -21,8 +25,8 @@ end
 if flag
     % labels only on bottom left plot
     if c==1 && r==dim(1)
-%         set(gca,'xticklabelmode','auto')
-%         set(gca,'yticklabelmode','auto')
+        %         set(gca,'xticklabelmode','auto')
+        %         set(gca,'yticklabelmode','auto')
     else
         xlabel([])
         ylabel([])
