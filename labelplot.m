@@ -27,7 +27,7 @@ vspace = min(max(ht./10, 10),1);
 
 % set text properties and defaults
 if ispc, basefontsize = 12;
-else basefontsize = 24; end
+else basefontsize = 14; end
 if isempty(fontsize)
     fontsize = min(basefontsize,calculate_fontsize(gca,8));
 end
