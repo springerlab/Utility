@@ -33,7 +33,7 @@ if drawoutline
 end
 
 if drawfill
-    patch([x(1) x x(end) x(1)],[0 y 0 y(1)],color,'facealpha',alpha,...
+    patch([x(1) x x(end) x(1)],[0 y 0 0],color,'facealpha',alpha,...
         'edgecolor','none',plotoptions{:});
     hold all
 end
