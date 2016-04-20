@@ -67,7 +67,6 @@ hf = figure('position',[leftpx bottompx figwidth figheight]);
 %     h = tight_subplot(3,3,[.05 .05],[.07 .03],[.02 .01]);
 ha = tight_subplot(nrows,ncols,[gapvert gaphorz],[margbot margtop],[margleft margright],'pixels');
 set(hf,'color','w')
-set(0,'defaulttextinterpreter','none')
 
 function ha = tight_subplot(Nh, Nw, gap, marg_h, marg_w, units)
 
