@@ -27,17 +27,16 @@ if size(y,2)<size(y,1)
     y = y';
 end
 
-if drawoutline
-    plot(x,y,'-','color',color);
-    hold all
-end
-
 if drawfill
     patch([x(1) x x(end) x(1)],[0 y 0 0],color,'facealpha',alpha,...
         'edgecolor','none',plotoptions{:});
     hold all
 end
 
+if drawoutline
+    plot(x,y,'-','color',color);
+    hold all
+end
 % set(gca,'xticklabelmode','auto')
 % set(gca,'yticklabelmode','auto')
 
