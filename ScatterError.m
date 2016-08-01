@@ -1,7 +1,7 @@
 function h = ScatterError(mx,dx,my,dy,varargin)
 % ScatterError makes a scatterplot with errorbars
 %
-% 20160213
+% 20160213 / 20160724
 p = inputParser;
 % addParameter(p,'markerOptions',{'linewidth',1,'markersize',5},@iscell);
 addParameter(p,'markerOptions',{10,[0 0 1],'markerfacecolor',[0 0 1]},@iscell);
@@ -16,9 +16,14 @@ hold all
 
 col = [.5 .5 .5];
 
+
 for idx = 1:length(mx)
-    plot(mx([idx idx]), my(idx) + [-1 1].*dy(idx),...
-        '-', 'color', col,errbarOptions{:});
-    plot(mx(idx) + [-1 1].*dx(idx), my([idx idx]),...
-        '-', 'color', col,errbarOptions{:});
+    if ~isempty(dy)
+        plot(mx([idx idx]), my(idx) + [-1 1].*dy(idx),...
+            '-', 'color', col,errbarOptions{:});
+    end
+    if ~isempty(dx)
+        plot(mx(idx) + [-1 1].*dx(idx), my([idx idx]),...
+            '-', 'color', col,errbarOptions{:});
+    end
 end
